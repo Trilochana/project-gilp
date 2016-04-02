@@ -1,7 +1,9 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var rename = require('gulp-rename');
-var browserify = require('gulp-browserify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync').create();
 
@@ -30,13 +32,10 @@ gulp.task('sass', function() {
 })
 
 gulp.task('scripts', function() {
-	// Single entry point to browserify
-	gulp.src('app/scripts/main.js')
-		.pipe(browserify({
-		  insertGlobals : true
-		}))
-    .pipe(uglify())
-    .pipe(rename('bundle.js'))
+	return browserify('app/scripts/main.js')
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
 		.pipe(gulp.dest('dist/js'))
     .pipe(browserSync.stream());
 });
