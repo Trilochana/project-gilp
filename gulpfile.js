@@ -43,9 +43,9 @@ gulp.task('scripts', function() {
 
 gulp.task('watch', function() {
   gulp.watch('app/index.html', ['html']);
-  gulp.watch('app/**/*.sass', ['sass']);
+  gulp.watch('app/sass/main.sass', ['sass']);
   gulp.watch('app/scripts/main.js', ['scripts']);
 });
 
-// gulp.task('default', ['html', 'sass', 'scripts']);
+gulp.task('default', ['html', 'sass', 'scripts']);
 gulp.task('start', ['html', 'sass', 'scripts', 'server', 'watch']);
