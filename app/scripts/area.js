@@ -5,5 +5,9 @@ module.exports = {
 
   perimeter: function(r) {
     return 2 * Math.PI * r;
+  },
+
+  volume: function() {
+
   }
 };

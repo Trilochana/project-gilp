@@ -6,6 +6,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync').create();
+var mocha = require('gulp-mocha');
 
 gulp.task('server', function() {
     browserSync.init({
@@ -44,7 +45,13 @@ gulp.task('watch', function() {
   gulp.watch('app/index.html', ['html']);
   gulp.watch('app/sass/main.sass', ['sass']);
   gulp.watch('app/scripts/main.js', ['scripts']);
+  gulp.watch('test/**/*.spec.js', ['test']);
+});
+
+gulp.task('test', function() {
+  gulp.src('test/**/*.js')
+    .pipe(mocha({ reporter: 'nyan'}));
 });
 
 gulp.task('default', ['html', 'sass', 'scripts']);
-gulp.task('start', ['html', 'sass', 'scripts', 'server', 'watch']);
+gulp.task('start', ['html', 'sass', 'scripts', 'test', 'server', 'watch']);
